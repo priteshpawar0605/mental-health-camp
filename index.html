@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindSpace Teens - Mental Wellness Camp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>MindSpace Teens</h1>
+    <p class="tagline">Share. Heal. Grow. Together.</p>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Welcome to Our Safe Space</h2>
+      <p>
+        MindSpace Teens is a supportive community where teenagers can share their stories,
+        find understanding, and grow stronger together. Join our Mental Wellness Camp and
+        connect with others on the same journey.
+      </p>
+      <button id="registerButton">Register to Join</button>
+    </div>
+  </section>
+
+  <section id="whatsappLink" class="hidden">
+    <div class="card">
+      <h3>🎉 You're Almost In!</h3>
+      <p>Thanks for registering! Join our private WhatsApp Community to start sharing and healing together.</p>
+      <a href="YOUR_WHATSAPP_INVITE_LINK_HERE" target="_blank" class="join-link">👉 Join WhatsApp Community</a>
+    </div>
+  </section>
+
+  <footer>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="who-we-are.html">Who We Are</a>
+      <a href="how-i-can-participate.html">How I Can Participate</a>
+    </nav>
+    <p>© 2025 MindSpace Teens | Created by Team mentals | For Mental Wellness Awareness</p>
+  </footer>
+
+  <script>
+    document.getElementById("registerButton").addEventListener("click", function() {
+      window.open("YOUR_GOOGLE_FORM_LINK_HERE", "_blank");
+      document.getElementById("whatsappLink").classList.remove("hidden");
+      document.getElementById("whatsappLink").scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

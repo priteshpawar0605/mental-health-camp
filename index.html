@@ -7,22 +7,57 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>MindSpace Teens</h1>
-    <p class="tagline">Share. Heal. Grow. Together.</p>
-   <div class="theme-toggle">
-  <input type="checkbox" id="themeToggle">
-  <label for="themeToggle" class="switch">
-    <span class="slider"></span>
-  </label>
-</div>
-  </header>
+  <!-- Header with Menu and Theme Toggle -->
+ <header>
+  <div class="header-top">
+    <div class="header-left">
+      <img id="headerAvatar" src="https://i.ibb.co/2k0J4Mn/default-avatar.png" alt="Avatar">
+      <button class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
+    </div>
+    <div class="theme-toggle">
+      <input type="checkbox" id="themeToggle">
+      <label for="themeToggle" class="switch">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+  <h1>MindSpace Teens</h1>
+  <p class="tagline">Share. Heal. Grow. Together.</p>
+</header>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-profile">
+      <img id="userAvatar" src="https://i.ibb.co/2k0J4Mn/default-avatar.png" alt="User Avatar">
+      <h3 id="userName">Hello, Teen!</h3>
+      <p>Welcome to MindSpace 🌸</p>
+      <button class="edit-profile-btn" onclick="showProfileEdit()">🖋 Edit Profile</button>
+    </div>
+    <a href="index.html">🏠 Home</a>
+    <a href="who-we-are.html">👥 Who We Are</a>
+    <a href="how-i-can-participate.html">✨ How I Can Participate</a>
+    <a href="stories.html">📖 Stories</a>
+    <span class="close-btn" onclick="toggleSidebar()">× Close</span>
+  </div>
+
+  <!-- Profile Edit Modal -->
+  <div id="profileModal" class="profile-modal">
+    <div class="profile-modal-content">
+      <h3>Edit Profile</h3>
+      <input type="text" id="newUserName" placeholder="Your Name">
+      <input type="text" id="newUserAvatar" placeholder="Avatar Image URL">
+      <button onclick="saveProfile()">Save</button>
+      <button onclick="closeProfileEdit()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
   <section class="hero">
     <h2>Welcome to MindSpace</h2>
     <p>A safe space for teenagers to share their stories and feel heard. Register below and get the WhatsApp community link to join our mental health support camp.</p>
     <a class="join-link" href="https://forms.gle/YOUR-GOOGLE-FORM-LINK" target="_blank">Register Now</a>
   </section>
 
+  <!-- WhatsApp Link Section -->
   <section id="whatsappLink">
     <div class="card">
       <h3>Already Registered?</h3>
@@ -31,37 +66,90 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <nav>
-  <a href="index.html">Home</a>
-  <a href="who-we-are.html">Who We Are</a>
-  <a href="our-team.html">Our Team</a>
-  <a href="faq.html">FAQ</a>
-  <a href="how-i-can-participate.html">How I Can Participate</a>
-  <a href="stories.html">Stories</a>
-</nav>
-
+      <a href="index.html">Home</a>
+      <a href="who-we-are.html">Who We Are</a>
+      <a href="our-team.html">Our Team</a>
+      <a href="faq.html">FAQ</a>
+      <a href="how-i-can-participate.html">How I Can Participate</a>
+      <a href="stories.html">Stories</a>
+    </nav>
     <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
-<script>
-  const toggle = document.getElementById('themeToggle');
-  const elements = [
-    document.body,
-    document.querySelector('header'),
-    ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
-  ];
 
-  // Load saved theme
-  if (localStorage.getItem('dimMode') === 'true') {
-    toggle.checked = true;
-    elements.forEach(el => el.classList.add('dim-mode'));
-  }
+  <!-- Scripts -->
+  <script>
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    const elements = [
+      document.body,
+      document.querySelector('header'),
+      ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
+    ];
 
-  toggle.addEventListener('change', () => {
-    const dim = toggle.checked;
-    elements.forEach(el => el.classList.toggle('dim-mode', dim));
-    localStorage.setItem('dimMode', dim);
-  });
-</script>
+    if (localStorage.getItem('dimMode') === 'true') {
+      toggle.checked = true;
+      elements.forEach(el => el.classList.add('dim-mode'));
+    }
+
+    toggle.addEventListener('change', () => {
+      const dim = toggle.checked;
+      elements.forEach(el => el.classList.toggle('dim-mode', dim));
+      localStorage.setItem('dimMode', dim);
+    });
+
+    // Sidebar
+    let sidebarOpen = false;
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      if (sidebarOpen) {
+        sidebar.style.width = "0";
+        sidebarOpen = false;
+      } else {
+        sidebar.style.width = "250px";
+        sidebarOpen = true;
+      }
+    }
+
+    // Profile Edit
+    function showProfileEdit() {
+      document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeProfileEdit() {
+      document.getElementById('profileModal').style.display = 'none';
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('newUserName').value;
+      const avatar = document.getElementById('newUserAvatar').value;
+
+      localStorage.setItem('mindspaceUserName', name);
+      localStorage.setItem('mindspaceUserAvatar', avatar);
+
+      updateProfile();
+      closeProfileEdit();
+    }
+
+    function updateProfile() {
+      const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
+      const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
+
+      document.getElementById('userName').innerText = name;
+      document.getElementById('userAvatar').src = avatar;
+    }
+
+    document.addEventListener('DOMContentLoaded', updateProfile);
+    function updateProfile() {
+  const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
+  const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
+
+  document.getElementById('userName').innerText = name;
+  document.getElementById('userAvatar').src = avatar;
+  document.getElementById('headerAvatar').src = avatar;  // 👈 Also update header
+}
+  </script>
 </body>
 </html>

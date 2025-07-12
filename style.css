@@ -526,3 +526,76 @@ header.dim-mode {
 .menu-btn.dim-mode:hover {
   background: linear-gradient(90deg, #6e189d, #b11d6b);
 }
+/* Base adjustments to ensure avatar + menu stay side by side neatly */
+.header-top {
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+/* Ensure header-left never wraps weirdly */
+.header-left {
+  flex-shrink: 1;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* Avatar image - round, scale down on narrow screens */
+.header-left img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Menu button - base style */
+.menu-btn {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Even smaller screens */
+@media (max-width: 480px) {
+  .header-top {
+    padding: 6px 12px;
+  }
+
+  .header-left img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .menu-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+  }
+}
+
+/* For iPhone SE and super narrow screens */
+@media (max-width: 360px) {
+  .header-left img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .menu-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+  }
+}

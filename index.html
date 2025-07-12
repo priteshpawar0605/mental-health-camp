@@ -43,8 +43,7 @@
 
     <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
-
- <script>
+<script>
   const toggle = document.getElementById('themeToggle');
   const elements = [
     document.body,
@@ -52,10 +51,10 @@
     ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
   ];
 
-  // Load preference
+  // Load saved theme
   if (localStorage.getItem('dimMode') === 'true') {
-    elements.forEach(el => el.classList.add('dim-mode'));
     toggle.checked = true;
+    elements.forEach(el => el.classList.add('dim-mode'));
   }
 
   toggle.addEventListener('change', () => {
@@ -64,6 +63,5 @@
     localStorage.setItem('dimMode', dim);
   });
 </script>
-
 </body>
 </html>

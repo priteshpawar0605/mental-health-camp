@@ -14,28 +14,32 @@
 
   <section class="content">
     <h2>Who We Are</h2>
-    <p>
-      We are a passionate team dedicated to promoting teenage mental wellness. Our mission is to create a safe space
-      where teenagers can share their stories, support each other, and feel heard.
-    </p>
-    <p>
-      Our team includes psychology students, educators, and volunteers who care deeply about mental health and want to
-      make a real difference. We believe in the power of community and conversation.
-    </p>
-    <p>
-      At MindSpace Teens, every voice matters. We’re committed to building a supportive, understanding, and non-judgmental
-      environment where no one feels alone.
-    </p>
+    <p>MindSpace Teens is a CEP college project dedicated to creating a safe space where teenagers can share their mental health stories freely and receive support from peers. We believe talking helps healing. This community is moderated to ensure safety and respect for all members.</p>
   </section>
 
   <footer>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="who-we-are.html">Who We Are</a>
-      <a href="how-i-can-participate.html">How I Can Participate</a>
-    </nav>
-    <p>© 2025 MindSpace Teens | Created by Team mentals | For Mental Wellness Awareness</p>
+  <a href="index.html">Home</a>
+  <a href="who-we-are.html">Who We Are</a>
+  <a href="our-team.html">Our Team</a>
+  <a href="faq.html">FAQ</a>
+  <a href="how-i-can-participate.html">How I Can Participate</a>
+  <a href="stories.html">Stories</a>
+</nav>
+
+    <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
+
+  <script>
+  const elements = [
+    document.body,
+    document.querySelector('header'),
+    ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
+  ];
+  if (localStorage.getItem('dimMode') === 'true') {
+    elements.forEach(el => el.classList.add('dim-mode'));
+  }
+</script>
+
 </body>
 </html>
-

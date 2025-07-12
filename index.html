@@ -3,50 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MindSpace Teens - Mental Wellness Camp</title>
+  <title>MindSpace Teens</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>MindSpace Teens</h1>
     <p class="tagline">Share. Heal. Grow. Together.</p>
+    <div class="theme-switch">
+  <input type="checkbox" id="themeToggle" />
+  <label for="themeToggle" class="switch">
+    <span class="slider"></span>
+  </label>
+</div>
+
   </header>
 
   <section class="hero">
-    <div class="hero-text">
-      <h2>Welcome to Our Safe Space</h2>
-      <p>
-        MindSpace Teens is a supportive community where teenagers can share their stories,
-        find understanding, and grow stronger together. Join our Mental Wellness Camp and
-        connect with others on the same journey.
-      </p>
-      <button id="registerButton">Register to Join</button>
-    </div>
+    <h2>Welcome to MindSpace</h2>
+    <p>A safe space for teenagers to share their stories and feel heard. Register below and get the WhatsApp community link to join our mental health support camp.</p>
+    <a class="join-link" href="https://forms.gle/YOUR-GOOGLE-FORM-LINK" target="_blank">Register Now</a>
   </section>
 
-  <section id="whatsappLink" class="hidden">
+  <section id="whatsappLink">
     <div class="card">
-      <h3>🎉 You're Almost In!</h3>
-      <p>Thanks for registering! Join our private WhatsApp Community to start sharing and healing together.</p>
-      <a href="YOUR_WHATSAPP_INVITE_LINK_HERE" target="_blank" class="join-link">👉 Join WhatsApp Community</a>
+      <h3>Already Registered?</h3>
+      <p>Join our WhatsApp Community directly:</p>
+      <a class="join-link" href="https://chat.whatsapp.com/YOUR-WHATSAPP-LINK" target="_blank">Join WhatsApp Community</a>
     </div>
   </section>
 
   <footer>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="who-we-are.html">Who We Are</a>
-      <a href="how-i-can-participate.html">How I Can Participate</a>
-    </nav>
-    <p>© 2025 MindSpace Teens | Created by Team mentals | For Mental Wellness Awareness</p>
+  <a href="index.html">Home</a>
+  <a href="who-we-are.html">Who We Are</a>
+  <a href="our-team.html">Our Team</a>
+  <a href="faq.html">FAQ</a>
+  <a href="how-i-can-participate.html">How I Can Participate</a>
+  <a href="stories.html">Stories</a>
+</nav>
+
+    <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
 
-  <script>
-    document.getElementById("registerButton").addEventListener("click", function() {
-      window.open("YOUR_GOOGLE_FORM_LINK_HERE", "_blank");
-      document.getElementById("whatsappLink").classList.remove("hidden");
-      document.getElementById("whatsappLink").scrollIntoView({ behavior: "smooth" });
-    });
-  </script>
+ <script>
+  const toggle = document.getElementById('themeToggle');
+  const elements = [
+    document.body,
+    document.querySelector('header'),
+    ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
+  ];
+
+  // Load preference
+  if (localStorage.getItem('dimMode') === 'true') {
+    elements.forEach(el => el.classList.add('dim-mode'));
+    toggle.checked = true;
+  }
+
+  toggle.addEventListener('change', () => {
+    const dim = toggle.checked;
+    elements.forEach(el => el.classList.toggle('dim-mode', dim));
+    localStorage.setItem('dimMode', dim);
+  });
+</script>
+
 </body>
 </html>

@@ -1,222 +1,315 @@
-/* Reset & Base */
+/* Reset & Font */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  body {
-    background: #f6f9fc;
-    color: #333;
-  }
-  
-  /* Header */
-  header {
-    background: linear-gradient(135deg, #6a82fb, #fc5c7d);
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f8f9fc;
+  color: #333;
+  line-height: 1.6;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Header */
+header {
+  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  animation: fadeSlideDown 1s ease-out;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+header .tagline {
+  font-style: italic;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  animation: fadeIn 2s ease forwards;
+}
+
+/* Toggle Theme Button */
+#themeToggle {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #fff;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#themeToggle:hover {
+  background: #f0f0f0;
+}
+
+/* Hero Section */
+.hero {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #fff;
+  margin: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  animation: fadeSlideUp 1.2s ease-out;
+}
+
+.hero h2 {
+  color: #5d3fd3;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.hero p {
+  max-width: 800px;
+  margin: 0 auto 30px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+button,
+.join-link {
+  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.3s;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+button:hover,
+.join-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Section */
+#whatsappLink {
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
+  animation: fadeSlideUp 1.5s ease-out;
+}
+
+.card {
+  background: #fff;
+  max-width: 450px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  text-align: center;
+  border-top: 5px solid #7b2ff7;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  color: #7b2ff7;
+}
+
+.card p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+/* Footer */
+footer {
+  background: #222;
+  color: #ccc;
+  text-align: center;
+  padding: 25px 15px;
+  font-size: 14px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-top: 40px;
+}
+
+footer nav {
+  margin-bottom: 10px;
+}
+
+footer nav a {
+  color: #ccc;
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+footer nav a:hover {
+  color: #fff;
+}
+
+/* Content Pages */
+.content {
+  max-width: 900px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  animation: fadeSlideUp 1.2s ease-out;
+}
+
+.content h2 {
+  color: #7b2ff7;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.content p,
+.content ul,
+.content ol {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.content li {
+  margin-bottom: 10px;
+}
+
+/* 🌙 Dim Mode Styles */
+body.dim-mode {
+  background-color: #181420;
+  color: #ddd;
+}
+
+header.dim-mode {
+  background: linear-gradient(90deg, #4b007d, #900048);
+  color: #eee;
+}
+
+.hero.dim-mode,
+.content.dim-mode,
+.card.dim-mode {
+  background-color: #221a2e;
+  color: #ddd;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
+}
+
+button.dim-mode,
+.join-link.dim-mode {
+  background: linear-gradient(90deg, #5a0d85, #a10c5d);
+  color: #eee;
+}
+
+button.dim-mode:hover,
+.join-link.dim-mode:hover {
+  background: linear-gradient(90deg, #6e189d, #b11d6b);
+}
+
+footer.dim-mode {
+  background: #140f1c;
+  color: #aaa;
+}
+
+footer.dim-mode nav a {
+  color: #aaa;
+}
+
+footer.dim-mode nav a:hover {
+  color: #fff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeSlideUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideDown {
+  0% { opacity: 0; transform: translateY(-40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 5px;
-  }
-  
-  header .tagline {
-    font-style: italic;
-    opacity: 0.9;
-    margin-bottom: 10px;
-  }
-  
-  /* Hero Section */
-  .hero {
-    padding: 50px 20px;
-    background: #fff;
-    text-align: center;
-  }
-  
-  .hero h2 {
-    color: #6a82fb;
-    margin-bottom: 15px;
     font-size: 2rem;
   }
-  
-  .hero p {
-    max-width: 700px;
-    margin: 0 auto 25px;
-    line-height: 1.7;
-    font-size: 1.1rem;
+
+  .hero {
+    padding: 40px 15px;
+    margin: 15px;
   }
-  
-  /* Button Style */
-  button, .join-link {
-    background: linear-gradient(135deg, #6a82fb, #fc5c7d);
-    color: white;
-    border: none;
-    padding: 14px 30px;
-    font-size: 16px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: bold;
-  }
-  
-  button:hover, .join-link:hover {
-    background: linear-gradient(135deg, #5d76e0, #e44d6c);
-    transform: scale(1.05);
-  }
-  
-  /* WhatsApp Link Section */
-  #whatsappLink {
-    display: flex;
-    justify-content: center;
-    padding: 40px 20px;
-    background: #f0f4f8;
-  }
-  
-  .card {
-    background: #fff;
-    max-width: 400px;
-    padding: 25px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 12px;
-    text-align: center;
-    border-top: 5px solid #6a82fb;
-    transition: transform 0.3s;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .card h3 {
-    margin-bottom: 10px;
-    color: #6a82fb;
-  }
-  
-  .card p {
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-  
-  /* Hidden Class */
-  .hidden {
-    display: none;
-  }
-  
-  /* Footer */
-  footer {
-    background: #333;
-    color: #ccc;
-    text-align: center;
-    padding: 20px 10px;
-    font-size: 14px;
-  }
-  
-  footer nav {
-    margin-bottom: 10px;
-  }
-  
-  footer nav a {
-    color: #ccc;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
-    transition: opacity 0.3s;
-  }
-  
-  footer nav a:hover {
-    opacity: 0.8;
-  }
-  
-  /* Content Pages (Who We Are & How I Can Participate) */
+
   .content {
-    max-width: 800px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: left;
-    line-height: 1.7;
+    margin: 20px 10px;
+    padding: 25px;
   }
-  
-  .content h2 {
-    color: #6a82fb;
-    margin-bottom: 20px;
-    text-align: center;
+
+  footer nav a {
+    display: block;
+    margin: 8px 0;
   }
-  
-  .content p,
-  .content ol {
-    font-size: 1.1rem;
-  }
-  
-  .content ol {
-    padding-left: 20px;
-  }
-  
-  .content ol li {
-    margin-bottom: 10px;
-  }
-  
-  /* Simple Fade-In Animation */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease-out forwards;
-  }
-  
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Mobile-Friendly Enhancements */
-  @media (max-width: 768px) {
-    header h1 {
-      font-size: 1.8rem;
-    }
-  
-    header .tagline {
-      font-size: 1rem;
-    }
-  
-    .hero {
-      padding: 30px 15px;
-    }
-  
-    .hero h2 {
-      font-size: 1.5rem;
-    }
-  
-    .hero p {
-      font-size: 1rem;
-    }
-  
-    button, .join-link {
-      padding: 12px 24px;
-      font-size: 1rem;
-    }
-  
-    .card {
-      margin: 0 10px;
-    }
-  
-    .content {
-      margin: 20px 10px;
-      padding: 20px;
-    }
-  
-    footer nav a {
-      display: block;
-      margin: 8px 0;
-    }
-  }
-  
+}
+/* Theme Switcher */
+.theme-switch {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  background: #f1f1f1;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.switch .slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background: url('https://img.icons8.com/ios-filled/50/sun--v1.png') no-repeat center;
+  background-size: 18px 18px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Checked State */
+.theme-switch input:checked + .switch {
+  background: #333;
+}
+
+.theme-switch input:checked + .switch .slider {
+  transform: translateX(30px);
+  background: url('https://img.icons8.com/ios-filled/50/crescent-moon.png') no-repeat center;
+  background-size: 18px 18px;
+  background-color: #000;
+}

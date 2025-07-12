@@ -444,3 +444,85 @@ header.dim-mode {
   object-fit: cover;
   border: 2px solid white;
 }
+/* Header top section with avatar and menu */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Avatar styling in header */
+.header-left img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  background-color: #fff;
+}
+
+/* Dim mode border color */
+.dim-mode .header-left img {
+  border-color: #ccc;
+}
+
+/* Menu button styling (same as Register Now) */
+.menu-btn {
+  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.menu-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive: adjust for smaller screens */
+@media (max-width: 600px) {
+  .header-top {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 15px;
+  }
+
+  .header-left img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .menu-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+}
+.menu-btn.dim-mode {
+  background: linear-gradient(90deg, #5a0d85, #a10c5d);
+  color: #eee;
+}
+
+.menu-btn.dim-mode:hover {
+  background: linear-gradient(90deg, #6e189d, #b11d6b);
+}

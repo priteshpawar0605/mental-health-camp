@@ -5,24 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How I Can Participate - MindSpace Teens</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .content {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .content h2 {
+      color: #7b2ff7;
+      margin-bottom: 20px;
+    }
+
+    .content p {
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .content ol {
+      padding-left: 20px;
+    }
+
+    .content ol li {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
     <h1>MindSpace Teens</h1>
     <p class="tagline">Share. Heal. Grow. Together.</p>
   </header>
 
-  <section class="content">
-    <h2>How I Can Participate</h2>
-    <p>It's easy to become part of our supportive community:</p>
-    <ol>
-      <li>Fill out our Google Form with basic details.</li>
-      <li>Get your WhatsApp Community Link instantly.</li>
-      <li>Join the group and start sharing or listening.</li>
-      <li>Be respectful, kind, and supportive to others.</li>
-    </ol>
-  </section>
+  <!-- Main Section -->
+  <main>
+    <section class="content">
+      <h2>How I Can Participate</h2>
+      <p>It's easy to become part of our supportive community:</p>
+      <ol>
+        <li>Fill out our Google Form with basic details.</li>
+        <li>Get your WhatsApp Community Link instantly.</li>
+        <li>Join the group and start sharing or listening.</li>
+        <li>Be respectful, kind, and supportive to others.</li>
+      </ol>
+    </section>
+  </main>
 
+  <!-- Footer -->
   <footer>
     <nav>
       <a href="index.html">Home</a>
@@ -35,16 +80,17 @@
     <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
 
- <script>
-  const elements = [
-    document.body,
-    document.querySelector('header'),
-    ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
-  ];
-  if (localStorage.getItem('dimMode') === 'true') {
-    elements.forEach(el => el.classList.add('dim-mode'));
-  }
-</script>
-
+  <!-- Theme Script -->
+  <script>
+    const elements = [
+      document.body,
+      document.querySelector('header'),
+      ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
+    ];
+    if (localStorage.getItem('dimMode') === 'true') {
+      elements.forEach(el => el.classList.add('dim-mode'));
+    }
+  </script>
 </body>
 </html>
+

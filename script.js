@@ -81,4 +81,20 @@ function updateProfile() {
 }
 
 document.addEventListener('DOMContentLoaded', updateProfile);
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.querySelector('.modal');
+  const closeBtn = document.querySelector('.modal-close');
+
+  const hasVisited = localStorage.getItem('hasVisited');
+
+  if (!hasVisited) {
+    modal.style.display = 'block';  // Show modal only on first visit
+    localStorage.setItem('hasVisited', 'true');
+  }
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+});
+
 </script>

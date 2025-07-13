@@ -5,6 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MindSpace Teens</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Bulb Theme Toggle Switch Styles */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+    }
+
+    .theme-toggle input {
+      display: none;
+    }
+
+    .bulb-switch {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      background: linear-gradient(90deg, #f1c40f, #e67e22);
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.4s ease;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .bulb-switch .slider {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #fff;
+      background-image: url('https://img.icons8.com/ios-filled/50/000000/light-on.png');
+      background-size: 18px 18px;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.3s ease, background-image 0.3s ease;
+    }
+
+    .theme-toggle input:checked + .bulb-switch {
+      background: linear-gradient(90deg, #34495e, #2c3e50);
+    }
+
+    .theme-toggle input:checked + .bulb-switch .slider {
+      transform: translateX(30px);
+      background-color: #000;
+      background-image: url('https://img.icons8.com/ios-filled/50/ffffff/light-off.png');
+    }
+
+    /* Sidebar open style (keep your existing sidebar style intact) */
+    .sidebar.open {
+      width: 250px;
+    }
+
+    /* Dim mode class (keep your existing too) */
+    .dim-mode {
+      background-color: #121212 !important;
+      color: #e0e0e0 !important;
+    }
+  </style>
 </head>
 <body>
   <!-- Header with Toggle -->
@@ -15,7 +73,10 @@
         <button id="menuBtn" class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
       </div>
       <div class="theme-toggle">
-        <button id="themeToggleBtn" onclick="toggleTheme()">🌞</button>
+        <input type="checkbox" id="themeToggle">
+        <label for="themeToggle" class="bulb-switch">
+          <span class="slider"></span>
+        </label>
       </div>
     </div>
     <h1>MindSpace Teens</h1>
@@ -56,7 +117,7 @@
   </div>
 
   <!-- Welcome Modal -->
-  <div id="welcomeModal" class="profile-modal">
+  <div id="welcomeModal" class="profile-modal" style="display: none;">
     <div class="profile-modal-content">
       <h3 id="welcomeTitle">Welcome!</h3>
       <p id="welcomeMessage">Customize your profile and join our WhatsApp community ❤️</p>
@@ -95,90 +156,118 @@
 
   <!-- Script -->
   <script>
-    const sidebar = document.getElementById("sidebar");
-    const menuBtn = document.getElementById("menuBtn");
-    let sidebarOpen = false;
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn = document.getElementById("menuBtn");
+  let sidebarOpen = false;
 
-    function toggleSidebar() {
-      sidebarOpen = !sidebarOpen;
-      sidebar.classList.toggle("open", sidebarOpen);
-      menuBtn.textContent = sidebarOpen ? "✖ Close" : "☰ Menu";
-    }
+  function toggleSidebar() {
+    sidebarOpen = !sidebarOpen;
+    sidebar.classList.toggle("open", sidebarOpen);
+    menuBtn.textContent = sidebarOpen ? "✖ Close" : "☰ Menu";
+  }
 
-    // Theme toggle
-    const themeBtn = document.getElementById('themeToggleBtn');
-    const elements = [document.body, document.querySelector('header'), ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')];
-    let darkMode = localStorage.getItem('dimMode') === 'true';
+  // Theme toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const elements = [
+    document.body,
+    document.querySelector('header'),
+    ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
+  ];
 
+  // NEW LOGIC
+  let darkMode;
+  if (localStorage.getItem('dimMode') !== null) {
+    // User already chose
+    darkMode = localStorage.getItem('dimMode') === 'true';
+  } else {
+    // First visit, use system preference
+    darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    localStorage.setItem('dimMode', darkMode);
+  }
+
+  // Apply theme immediately
+  themeToggle.checked = darkMode;
+  applyTheme();
+
+  // User manually toggles
+  themeToggle.addEventListener('change', () => {
+    darkMode = themeToggle.checked;
+    localStorage.setItem('dimMode', darkMode);
     applyTheme();
-    function toggleTheme() {
-      darkMode = !darkMode;
+  });
+
+  // Apply theme helper
+  function applyTheme() {
+    elements.forEach(el => el.classList.toggle('dim-mode', darkMode));
+  }
+
+  // Optional: listen for system theme change
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    const systemPrefersDark = e.matches;
+    // Only auto-update if user hasn't chosen manually
+    if (localStorage.getItem('dimMode') === null) {
+      darkMode = systemPrefersDark;
       localStorage.setItem('dimMode', darkMode);
+      themeToggle.checked = darkMode;
       applyTheme();
     }
-    function applyTheme() {
-      elements.forEach(el => el.classList.toggle('dim-mode', darkMode));
-      themeBtn.textContent = darkMode ? "🌙" : "🌞";
-    }
+  });
 
-    // Profile
-    function showProfileEdit() {
-      document.getElementById('profileModal').style.display = 'block';
-    }
-    function closeProfileEdit() {
-      document.getElementById('profileModal').style.display = 'none';
-    }
-    function saveProfile() {
-      const name = document.getElementById('newUserName').value;
-      const fileInput = document.getElementById('newUserAvatarFile');
-      if (name) localStorage.setItem('mindspaceUserName', name);
-      if (fileInput.files.length) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          localStorage.setItem('mindspaceUserAvatar', reader.result);
-          updateProfile();
-        };
-        reader.readAsDataURL(fileInput.files[0]);
-      } else {
+  // Profile
+  function showProfileEdit() {
+    document.getElementById('profileModal').style.display = 'block';
+  }
+  function closeProfileEdit() {
+    document.getElementById('profileModal').style.display = 'none';
+  }
+  function saveProfile() {
+    const name = document.getElementById('newUserName').value;
+    const fileInput = document.getElementById('newUserAvatarFile');
+    if (name) localStorage.setItem('mindspaceUserName', name);
+    if (fileInput.files.length) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        localStorage.setItem('mindspaceUserAvatar', reader.result);
         updateProfile();
-      }
-      closeProfileEdit();
-    }
-    function updateProfile() {
-      const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
-      const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
-      document.getElementById('userName').innerText = name;
-      document.getElementById('userAvatar').src = avatar;
-      document.getElementById('headerAvatar').src = avatar;
-    }
-    document.addEventListener('DOMContentLoaded', () => {
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    } else {
       updateProfile();
-      showWelcomeIfNeeded();
-    });
+    }
+    closeProfileEdit();
+  }
+  function updateProfile() {
+    const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
+    const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
+    document.getElementById('userName').innerText = name;
+    document.getElementById('userAvatar').src = avatar;
+    document.getElementById('headerAvatar').src = avatar;
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    updateProfile();
+    showWelcomeIfNeeded();
+  });
 
-    // Welcome Modal
-    function showWelcomeIfNeeded() {
-      const modal = document.getElementById('welcomeModal');
-      const name = localStorage.getItem('mindspaceUserName');
-      const visited = localStorage.getItem('hasVisitedBefore');
+  // Welcome Modal
+  function showWelcomeIfNeeded() {
+    const modal = document.getElementById('welcomeModal');
+    const name = localStorage.getItem('mindspaceUserName');
+    const shown = sessionStorage.getItem('modalShown');
+
+    if (!shown) {
       const title = document.getElementById('welcomeTitle');
       const message = document.getElementById('welcomeMessage');
+      title.textContent = name ? `Welcome back, ${name}!` : "Welcome!";
+      message.textContent = name ? "Glad to see you again here 💖" : "Customize your profile and join our WhatsApp community ❤️";
+      modal.style.display = 'block';
+      sessionStorage.setItem('modalShown', 'true');
+    }
+  }
 
-      if (!visited) {
-        title.textContent = "Welcome!";
-        message.textContent = "Customize your profile and join our WhatsApp community ❤️";
-        modal.style.display = 'block';
-        localStorage.setItem('hasVisitedBefore', 'true');
-      } else {
-        title.textContent = `Welcome back, ${name || 'Teen'}!`;
-        message.textContent = "Glad to see you again here 💖";
-        modal.style.display = 'block';
-      }
-    }
-    function closeWelcome() {
-      document.getElementById('welcomeModal').style.display = 'none';
-    }
-  </script>
+  function closeWelcome() {
+    document.getElementById('welcomeModal').style.display = 'none';
+  }
+</script>
 </body>
 </html>
 

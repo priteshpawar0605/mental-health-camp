@@ -5,45 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FAQ - MindSpace Teens</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .content {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .content h2 {
+      color: #7b2ff7;
+      margin-bottom: 20px;
+    }
+
+    .content ol li {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
     <h1>MindSpace Teens</h1>
     <p class="tagline">Share. Heal. Grow. Together.</p>
   </header>
 
-  <section class="content">
-    <h2>FAQ</h2>
-    <ol>
-      <li><strong>How do I join?</strong><br>Fill out the Google Form and get the WhatsApp link.</li>
-      <li><strong>Is it free?</strong><br>Yes, completely free as part of our CEP project.</li>
-      <li><strong>Is it confidential?</strong><br>We encourage respectful, private sharing in a safe environment.</li>
-    </ol>
-  </section>
+  <!-- Main Content -->
+  <main>
+    <section class="content">
+      <h2>FAQ</h2>
+      <ol>
+        <li><strong>How do I join?</strong><br>Fill out the Google Form and get the WhatsApp link.</li>
+        <li><strong>Is it free?</strong><br>Yes, completely free as part of our CEP project.</li>
+        <li><strong>Is it confidential?</strong><br>We encourage respectful, private sharing in a safe environment.</li>
+      </ol>
+    </section>
+  </main>
 
+  <!-- Footer -->
   <footer>
-  <nav>
-  <a href="index.html">Home</a>
-  <a href="who-we-are.html">Who We Are</a>
-  <a href="our-team.html">Our Team</a>
-  <a href="faq.html">FAQ</a>
-  <a href="how-i-can-participate.html">How I Can Participate</a>
-  <a href="stories.html">Stories</a>
-</nav>
-
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="who-we-are.html">Who We Are</a>
+      <a href="our-team.html">Our Team</a>
+      <a href="faq.html">FAQ</a>
+      <a href="how-i-can-participate.html">How I Can Participate</a>
+      <a href="stories.html">Stories</a>
+    </nav>
     <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
 
+  <!-- Theme Script -->
   <script>
-  const elements = [
-    document.body,
-    document.querySelector('header'),
-    ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
-  ];
-  if (localStorage.getItem('dimMode') === 'true') {
-    elements.forEach(el => el.classList.add('dim-mode'));
-  }
-</script>
-
+    const elements = [
+      document.body,
+      document.querySelector('header'),
+      ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
+    ];
+    if (localStorage.getItem('dimMode') === 'true') {
+      elements.forEach(el => el.classList.add('dim-mode'));
+    }
+  </script>
 </body>
 </html>
+

@@ -406,3 +406,52 @@ header.dim-mode {
     font-size: 0.95rem;
   }
 }
+/* Sticky Footer Layout */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+/* Dim-mode text color fixes */
+.dim-mode,
+.dim-mode h1,
+.dim-mode h2,
+.dim-mode h3,
+.dim-mode p,
+.dim-mode a,
+.dim-mode span,
+.dim-mode .tagline {
+  color: #e0e0e0 !important;
+}
+
+.dim-mode a:hover {
+  color: #ffffff !important;
+}
+
+.dim-mode .sidebar a {
+  color: #e0e0e0 !important;
+}
+
+.dim-mode .sidebar a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dim-mode footer {
+  background: #121212;
+  color: #ccc;
+}
+
+.dim-mode footer nav a {
+  color: #ccc;
+}
+
+.dim-mode footer nav a:hover {
+  color: #fff;
+}

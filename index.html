@@ -11,11 +11,7 @@
       display: flex;
       align-items: center;
     }
-
-    .theme-toggle input {
-      display: none;
-    }
-
+    .theme-toggle input { display: none; }
     .bulb-switch {
       position: relative;
       width: 60px;
@@ -26,7 +22,6 @@
       transition: background 0.4s ease;
       box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
     }
-
     .bulb-switch .slider {
       position: absolute;
       top: 3px;
@@ -41,35 +36,160 @@
       background-position: center;
       transition: transform 0.3s ease, background-image 0.3s ease;
     }
-
     .theme-toggle input:checked + .bulb-switch {
       background: linear-gradient(90deg, #34495e, #2c3e50);
     }
-
     .theme-toggle input:checked + .bulb-switch .slider {
       transform: translateX(30px);
       background-color: #000;
       background-image: url('https://img.icons8.com/ios-filled/50/ffffff/light-off.png');
     }
+    .sidebar.open { width: 250px; }
+    .dim-mode { background-color: #121212 !important; color: #e0e0e0 !important; }
 
-    /* Sidebar open style (keep your existing sidebar style intact) */
-    .sidebar.open {
-      width: 250px;
+    /* Announcements Section */
+    .announcements {
+      background-color: #fff;
+      margin: 20px;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .announcements h2 {
+      color: #7b2ff7;
+      margin-bottom: 15px;
+    }
+    .announcements ul {
+      list-style: none;
+      padding: 0;
+    }
+    .announcements li {
+      margin: 10px 0;
+      color: #555;
+      font-size: 1.05rem;
+    }
+    .dim-mode .announcements {
+      background-color: #1c1c1c;
+      color: #e0e0e0;
+      border: 1px solid #333;
     }
 
-    /* Dim mode class (keep your existing too) */
-    .dim-mode {
-      background-color: #121212 !important;
-      color: #e0e0e0 !important;
+    /* Avatar Options */
+    .avatar-options {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
     }
+    .avatar-options img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ccc;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .avatar-options img:hover {
+      transform: scale(1.1);
+      border-color: #7b2ff7;
+    }
+
+    /* Consent Banner */
+    .consent-banner {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 14px;
+      z-index: 3000;
+      display: none;
+    }
+    .consent-banner a {
+      color: #a64ac9;
+      text-decoration: underline;
+    }
+    .consent-banner button {
+      margin-left: 15px;
+      padding: 6px 12px;
+      background: #7b2ff7;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .consent-banner button:hover {
+      background: #a64ac9;
+    }
+    .dim-mode .consent-banner {
+      background: #111;
+      color: #ddd;
+    }
+
+    /* ——— NEW: Notification Bell & Popup ——— */
+    .notification-bell {
+      margin-left: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      position: relative;
+      color: #555;
+      display: inline-block;
+      vertical-align: middle;
+      transition: color 0.3s ease;
+    }
+    .notification-bell:hover {
+      color: #7b2ff7;
+    }
+    .notification-popup {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 35px;
+      background-color: #fff;
+      color: #333;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 220px;
+      padding: 15px;
+      z-index: 2000;
+    }
+    .notification-popup h4 {
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #7b2ff7;
+    }
+    .notification-popup ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .notification-popup li {
+      font-size: 14px;
+      padding: 5px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .notification-popup li:last-child {
+      border-bottom: none;
+    }
+    .dim-mode .notification-popup {
+      background-color: #222;
+      color: #eee;
+      border: 1px solid #444;
+    }
+    /* ———————————————— */
   </style>
 </head>
 <body>
-  <!-- Header with Toggle -->
+  <!-- Header -->
   <header>
     <div class="header-top">
       <div class="header-left">
-        <img id="headerAvatar" src="C:\mental-health-camp\download copy.jpg" alt="Avatar">
+        <img id="headerAvatar" src="https://i.ibb.co/2k0J4Mn/default-avatar.png" alt="Avatar">
         <button id="menuBtn" class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
       </div>
       <div class="theme-toggle">
@@ -78,6 +198,18 @@
           <span class="slider"></span>
         </label>
       </div>
+      <!-- ——— NEW: Notification Bell ——— -->
+      <div class="notification-bell" onclick="toggleNotifications()" title="Notifications">
+        🔔
+        <div id="notificationPopup" class="notification-popup">
+          <h4>Notifications</h4>
+          <ul>
+            <li>🧘 Workshop this Sunday 5PM!</li>
+            <li>✅ FAQs updated!</li>
+          </ul>
+        </div>
+      </div>
+      <!-- ———————————————————————— -->
     </div>
     <h1>MindSpace Teens</h1>
     <p class="tagline">Share. Heal. Grow. Together.</p>
@@ -111,6 +243,12 @@
       <h3>Edit Profile</h3>
       <input type="text" id="newUserName" placeholder="Your Name">
       <input type="file" id="newUserAvatarFile">
+      <p>Or choose an avatar:</p>
+      <div class="avatar-options">
+        <img src="https://i.ibb.co/2k0J4Mn/default-avatar.png" onclick="selectPredefinedAvatar(this.src)">
+        <img src="https://i.ibb.co/t4L8bdx/avatar2.png" onclick="selectPredefinedAvatar(this.src)">
+        <img src="https://i.ibb.co/D5Qmz0J/avatar3.png" onclick="selectPredefinedAvatar(this.src)">
+      </div>
       <button onclick="saveProfile()">Save</button>
       <button onclick="closeProfileEdit()">Cancel</button>
     </div>
@@ -132,6 +270,16 @@
     <a class="join-link" href="https://forms.gle/YOUR-GOOGLE-FORM-LINK" target="_blank">Register Now</a>
   </section>
 
+  <!-- Announcements Section -->
+  <section class="announcements">
+    <h2>📣 Announcements</h2>
+    <ul>
+      <li>🗓️ New mindfulness workshop this Sunday at 5PM!</li>
+      <li>✨ Share your story and get featured on our homepage!</li>
+      <li>✅ New FAQs added - check them out!</li>
+    </ul>
+  </section>
+
   <!-- WhatsApp Card -->
   <section id="whatsappLink">
     <div class="card">
@@ -150,130 +298,151 @@
       <a href="faq.html">FAQ</a>
       <a href="how-i-can-participate.html">How I Can Participate</a>
       <a href="stories.html">Stories</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
     </nav>
     <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
 
+  <!-- Consent Banner -->
+  <div id="consentBanner" class="consent-banner">
+    <p>We use local storage to save your theme and profile preferences. By using our site you agree to our <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.</p>
+    <button onclick="acceptConsent()">Got it</button>
+  </div>
+
   <!-- Script -->
   <script>
-  const sidebar = document.getElementById("sidebar");
-  const menuBtn = document.getElementById("menuBtn");
-  let sidebarOpen = false;
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.getElementById("menuBtn");
+    let sidebarOpen = false;
 
-  function toggleSidebar() {
-    sidebarOpen = !sidebarOpen;
-    sidebar.classList.toggle("open", sidebarOpen);
-    menuBtn.textContent = sidebarOpen ? "✖ Close" : "☰ Menu";
-  }
+    function toggleSidebar() {
+      sidebarOpen = !sidebarOpen;
+      sidebar.classList.toggle("open", sidebarOpen);
+      menuBtn.textContent = sidebarOpen ? "✖ Close" : "☰ Menu";
+    }
 
-  // Theme toggle with system preference detection
-  const themeToggle = document.getElementById('themeToggle');
-  const elements = [
-    document.body,
-    document.querySelector('header'),
-    ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
-  ];
+    const themeToggle = document.getElementById('themeToggle');
+    const elements = [
+      document.body,
+      document.querySelector('header'),
+      ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
+    ];
 
-  let darkMode;
-  if (localStorage.getItem('dimMode') !== null) {
-    // User previously chose
-    darkMode = localStorage.getItem('dimMode') === 'true';
-  } else {
-    // First visit – detect system preference
-    darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    localStorage.setItem('dimMode', darkMode);
-  }
+    let darkMode;
+    if (localStorage.getItem('dimMode') !== null) {
+      darkMode = localStorage.getItem('dimMode') === 'true';
+    } else {
+      darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      localStorage.setItem('dimMode', darkMode);
+    }
 
-  // Apply initial theme
-  themeToggle.checked = darkMode;
-  applyTheme();
-
-  // User toggles manually
-  themeToggle.addEventListener('change', () => {
-    darkMode = themeToggle.checked;
-    localStorage.setItem('dimMode', darkMode);
+    themeToggle.checked = darkMode;
     applyTheme();
-  });
 
-  // Listen for system theme change
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    // Only auto-apply if user hasn't explicitly set a preference
-    if (localStorage.getItem('dimMode') === null) {
-      darkMode = e.matches;
-      themeToggle.checked = darkMode;
+    themeToggle.addEventListener('change', () => {
+      darkMode = themeToggle.checked;
+      localStorage.setItem('dimMode', darkMode);
       applyTheme();
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (localStorage.getItem('dimMode') === null) {
+        darkMode = e.matches;
+        themeToggle.checked = darkMode;
+        applyTheme();
+      }
+    });
+
+    function applyTheme() {
+      elements.forEach(el => el.classList.toggle('dim-mode', darkMode));
     }
-  });
 
-  function applyTheme() {
-    elements.forEach(el => el.classList.toggle('dim-mode', darkMode));
-  }
-
-  // Profile functions
-  function showProfileEdit() {
-    document.getElementById('profileModal').style.display = 'block';
-  }
-
-  function closeProfileEdit() {
-    document.getElementById('profileModal').style.display = 'none';
-  }
-
-  function saveProfile() {
-    const name = document.getElementById('newUserName').value;
-    const fileInput = document.getElementById('newUserAvatarFile');
-    if (name) localStorage.setItem('mindspaceUserName', name);
-
-    if (fileInput.files.length) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        localStorage.setItem('mindspaceUserAvatar', reader.result);
+    function showProfileEdit() {
+      document.getElementById('profileModal').style.display = 'block';
+    }
+    function closeProfileEdit() {
+      document.getElementById('profileModal').style.display = 'none';
+    }
+    function saveProfile() {
+      const name = document.getElementById('newUserName').value;
+      const fileInput = document.getElementById('newUserAvatarFile');
+      if (name) localStorage.setItem('mindspaceUserName', name);
+      if (fileInput.files.length) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          localStorage.setItem('mindspaceUserAvatar', reader.result);
+          updateProfile();
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
         updateProfile();
-      };
-      reader.readAsDataURL(fileInput.files[0]);
-    } else {
+      }
+      closeProfileEdit();
+    }
+    function selectPredefinedAvatar(src) {
+      localStorage.setItem('mindspaceUserAvatar', src);
       updateProfile();
+      closeProfileEdit();
     }
-    closeProfileEdit();
-  }
-
-  function updateProfile() {
-    const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
-    const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
-    document.getElementById('userName').innerText = name;
-    document.getElementById('userAvatar').src = avatar;
-    document.getElementById('headerAvatar').src = avatar;
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    updateProfile();
-    showWelcomeIfNeeded();
-  });
-
-  // Welcome Modal Logic (fixed)
-  function showWelcomeIfNeeded() {
-    const modal = document.getElementById('welcomeModal');
-    const title = document.getElementById('welcomeTitle');
-    const message = document.getElementById('welcomeMessage');
-    const name = localStorage.getItem('mindspaceUserName');
-
-    if (localStorage.getItem('firstVisitDone')) {
-      // Returning visitor
-      title.textContent = name ? `Welcome back, ${name}!` : "Welcome back!";
-      message.textContent = name ? "Glad to see you again here 💖" : "Glad to have you again 💖";
-    } else {
-      // First ever visit
-      title.textContent = "Welcome!";
-      message.textContent = "Customize your profile and join our WhatsApp community ❤️";
-      localStorage.setItem('firstVisitDone', 'true');
+    function updateProfile() {
+      const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
+      const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
+      document.getElementById('userName').innerText = name;
+      document.getElementById('userAvatar').src = avatar;
+      document.getElementById('headerAvatar').src = avatar;
     }
 
-    modal.style.display = 'block';
-  }
+    function showWelcomeIfNeeded() {
+      const modal = document.getElementById('welcomeModal');
+      const title = document.getElementById('welcomeTitle');
+      const message = document.getElementById('welcomeMessage');
+      const name = localStorage.getItem('mindspaceUserName');
+      if (sessionStorage.getItem('welcomeModalShown')) return;
+      const isFirstVisitEver = !localStorage.getItem('firstVisitDone');
+      if (isFirstVisitEver) {
+        title.textContent = "Welcome!";
+        message.textContent = "Customize your profile and join our WhatsApp community ❤️";
+        localStorage.setItem('firstVisitDone', 'true');
+      } else {
+        title.textContent = name ? `Welcome back, ${name}!` : "Welcome back!";
+        message.textContent = name ? "Glad to see you again here 💖" : "Glad to have you again 💖";
+      }
+      modal.style.display = 'block';
+      sessionStorage.setItem('welcomeModalShown', 'true');
+    }
 
-  function closeWelcome() {
-    document.getElementById('welcomeModal').style.display = 'none';
-  }
-</script>
+    function closeWelcome() {
+      document.getElementById('welcomeModal').style.display = 'none';
+    }
+
+    function checkConsent() {
+      const banner = document.getElementById('consentBanner');
+      if (!localStorage.getItem('consentAccepted')) {
+        banner.style.display = 'block';
+      }
+    }
+    function acceptConsent() {
+      localStorage.setItem('consentAccepted', 'true');
+      document.getElementById('consentBanner').style.display = 'none';
+    }
+
+    // — NEW: notification toggle function
+    function toggleNotifications() {
+      const popup = document.getElementById("notificationPopup");
+      popup.style.display = (popup.style.display === "block" ? "none" : "block");
+      document.addEventListener('click', function hide(e) {
+        if (!popup.contains(e.target) && !e.target.closest('.notification-bell')) {
+          popup.style.display = 'none';
+          document.removeEventListener('click', hide);
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateProfile();
+      showWelcomeIfNeeded();
+      checkConsent();
+    });
+  </script>
 </body>
 </html>
-

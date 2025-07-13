@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy - MindSpace Teens</title>
+  <link rel="stylesheet" href="style.css" />
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    transition: background 0.4s, color 0.4s;
+  }
+
+  header {
+    text-align: center;
+    padding: 40px 10px 10px;
+    background: linear-gradient(90deg, #ff5ec4, #7b2ff7);
+    color: white;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+
+  .tagline {
+    background: none;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+  .content {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .dim-mode .content {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+
+  footer a {
+    color: #7b2ff7;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  .dim-mode footer {
+    background-color: #121212;
+    color: #aaa;
+  }
+
+  .dim-mode footer a {
+    color: #c09eff;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>MindSpace Teens</h1>
+    <h6>Privacy is our first resposibility </h6>
+    <p class="tagline">Share. Heal. Grow. Together.</p>
+  </header>
+
+  <main>
+    <section class="content">
+      <h2>Our Privacy Commitment</h2>
+      <p>We respect your privacy. We use local storage only to save your profile name, avatar, and theme preferences. We do not collect or sell any personal data.</p>
+      <p>Your preferences are stored only on your device, ensuring you have full control over them. By using this site, you agree to our use of local storage for these purposes.</p>
+    </section>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="who-we-are.html">Who We Are</a>
+      <a href="our-team.html">Our Team</a>
+      <a href="faq.html">FAQ</a>
+      <a href="how-i-can-participate.html">How I Can Participate</a>
+      <a href="stories.html">Stories</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </nav>
+    <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Apply dark mode based on local storage (same logic as main site)
+    const elements = [
+      document.body,
+      document.querySelector('header'),
+      document.querySelector('main'),
+      document.querySelector('.content'),
+      document.querySelector('footer')
+    ];
+
+    let darkMode;
+    if (localStorage.getItem('dimMode') !== null) {
+      darkMode = localStorage.getItem('dimMode') === 'true';
+    } else {
+      darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      localStorage.setItem('dimMode', darkMode);
+    }
+
+    applyTheme();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (localStorage.getItem('dimMode') === null) {
+        darkMode = e.matches;
+        localStorage.setItem('dimMode', darkMode);
+        applyTheme();
+      }
+    });
+
+    function applyTheme() {
+      elements.forEach(el => {
+        if (el) el.classList.toggle('dim-mode', darkMode);
+      });
+    }
+  </script>
+</body>
+</html>

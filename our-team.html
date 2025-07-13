@@ -72,6 +72,7 @@
       <a href="faq.html">FAQ</a>
       <a href="how-i-can-participate.html">How I Can Participate</a>
       <a href="stories.html">Stories</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
     </nav>
     <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
@@ -86,7 +87,16 @@
     if (localStorage.getItem('dimMode') === 'true') {
       elements.forEach(el => el.classList.add('dim-mode'));
     }
-  </script>
+  // Check if we're on index.html (or root)
+  const path = window.location.pathname;
+  const isHome = path.endsWith("index.html") || path === "/" || path === "";
+
+  if (!isHome) {
+    // Hide profile section on non-home pages
+    const profile = document.getElementById("sidebarProfile");
+    if (profile) profile.style.display = "none";
+  }
+</script>
 </body>
 </html>
 

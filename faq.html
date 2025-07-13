@@ -38,6 +38,7 @@
   </style>
 </head>
 <body>
+
   <!-- Header -->
   <header>
     <h1>MindSpace Teens</h1>
@@ -65,12 +66,14 @@
       <a href="faq.html">FAQ</a>
       <a href="how-i-can-participate.html">How I Can Participate</a>
       <a href="stories.html">Stories</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
     </nav>
     <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
 
-  <!-- Theme Script -->
+  <!-- Theme + Sidebar Profile Toggle Script -->
   <script>
+    // Apply dim mode if set
     const elements = [
       document.body,
       document.querySelector('header'),
@@ -79,7 +82,28 @@
     if (localStorage.getItem('dimMode') === 'true') {
       elements.forEach(el => el.classList.add('dim-mode'));
     }
+
+    // ✅ Universal reliable check
+    const path = window.location.pathname.toLowerCase();
+    const isIndexPage = path.endsWith("/index.html") || path === "/" || path === "" || !path.includes(".");
+
+    if (!isIndexPage) {
+      const profile = document.getElementById("sidebarProfile");
+      if (profile) profile.style.display = "none";
+    }
+
+    // Sidebar open/close
+    function openSidebar() {
+      document.getElementById('sidebar').classList.add('open');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    // Modal (optional)
+    function openProfileModal() {
+      alert('Profile modal would open!');
+    }
   </script>
 </body>
 </html>
-

@@ -69,7 +69,7 @@
   <header>
     <div class="header-top">
       <div class="header-left">
-        <img id="headerAvatar" src="https://i.ibb.co/2k0J4Mn/default-avatar.png" alt="Avatar">
+        <img id="headerAvatar" src="C:\mental-health-camp\download copy.jpg" alt="Avatar">
         <button id="menuBtn" class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
       </div>
       <div class="theme-toggle">
@@ -166,7 +166,7 @@
     menuBtn.textContent = sidebarOpen ? "✖ Close" : "☰ Menu";
   }
 
-  // Theme toggle
+  // Theme toggle with system preference detection
   const themeToggle = document.getElementById('themeToggle');
   const elements = [
     document.body,
@@ -174,56 +174,55 @@
     ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
   ];
 
-  // NEW LOGIC
   let darkMode;
   if (localStorage.getItem('dimMode') !== null) {
-    // User already chose
+    // User previously chose
     darkMode = localStorage.getItem('dimMode') === 'true';
   } else {
-    // First visit, use system preference
+    // First visit – detect system preference
     darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     localStorage.setItem('dimMode', darkMode);
   }
 
-  // Apply theme immediately
+  // Apply initial theme
   themeToggle.checked = darkMode;
   applyTheme();
 
-  // User manually toggles
+  // User toggles manually
   themeToggle.addEventListener('change', () => {
     darkMode = themeToggle.checked;
     localStorage.setItem('dimMode', darkMode);
     applyTheme();
   });
 
-  // Apply theme helper
-  function applyTheme() {
-    elements.forEach(el => el.classList.toggle('dim-mode', darkMode));
-  }
-
-  // Optional: listen for system theme change
+  // Listen for system theme change
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    const systemPrefersDark = e.matches;
-    // Only auto-update if user hasn't chosen manually
+    // Only auto-apply if user hasn't explicitly set a preference
     if (localStorage.getItem('dimMode') === null) {
-      darkMode = systemPrefersDark;
-      localStorage.setItem('dimMode', darkMode);
+      darkMode = e.matches;
       themeToggle.checked = darkMode;
       applyTheme();
     }
   });
 
-  // Profile
+  function applyTheme() {
+    elements.forEach(el => el.classList.toggle('dim-mode', darkMode));
+  }
+
+  // Profile functions
   function showProfileEdit() {
     document.getElementById('profileModal').style.display = 'block';
   }
+
   function closeProfileEdit() {
     document.getElementById('profileModal').style.display = 'none';
   }
+
   function saveProfile() {
     const name = document.getElementById('newUserName').value;
     const fileInput = document.getElementById('newUserAvatarFile');
     if (name) localStorage.setItem('mindspaceUserName', name);
+
     if (fileInput.files.length) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -236,6 +235,7 @@
     }
     closeProfileEdit();
   }
+
   function updateProfile() {
     const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
     const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
@@ -243,25 +243,31 @@
     document.getElementById('userAvatar').src = avatar;
     document.getElementById('headerAvatar').src = avatar;
   }
+
   document.addEventListener('DOMContentLoaded', () => {
     updateProfile();
     showWelcomeIfNeeded();
   });
 
-  // Welcome Modal
+  // Welcome Modal Logic (fixed)
   function showWelcomeIfNeeded() {
     const modal = document.getElementById('welcomeModal');
+    const title = document.getElementById('welcomeTitle');
+    const message = document.getElementById('welcomeMessage');
     const name = localStorage.getItem('mindspaceUserName');
-    const shown = sessionStorage.getItem('modalShown');
 
-    if (!shown) {
-      const title = document.getElementById('welcomeTitle');
-      const message = document.getElementById('welcomeMessage');
-      title.textContent = name ? `Welcome back, ${name}!` : "Welcome!";
-      message.textContent = name ? "Glad to see you again here 💖" : "Customize your profile and join our WhatsApp community ❤️";
-      modal.style.display = 'block';
-      sessionStorage.setItem('modalShown', 'true');
+    if (localStorage.getItem('firstVisitDone')) {
+      // Returning visitor
+      title.textContent = name ? `Welcome back, ${name}!` : "Welcome back!";
+      message.textContent = name ? "Glad to see you again here 💖" : "Glad to have you again 💖";
+    } else {
+      // First ever visit
+      title.textContent = "Welcome!";
+      message.textContent = "Customize your profile and join our WhatsApp community ❤️";
+      localStorage.setItem('firstVisitDone', 'true');
     }
+
+    modal.style.display = 'block';
   }
 
   function closeWelcome() {

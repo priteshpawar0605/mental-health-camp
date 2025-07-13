@@ -9,8 +9,34 @@
 body {
   background-color: #f8f9fc;
   color: #333;
-  line-height: 1.6;
   transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.8); }
+  60% { opacity: 1; transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeSlideUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideLeft {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 /* Header */
@@ -21,90 +47,61 @@ header {
   text-align: center;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  animation: fadeSlideDown 1s ease-out;
-  position: relative;
+  animation: fadeSlideUp 1s ease-out;
 }
 
 .header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  padding: 0 12px;
+  margin-bottom: 10px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-left img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
 }
 
 .menu-btn {
   background: linear-gradient(90deg, #7b2ff7, #f107a3);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 20px;
   border-radius: 30px;
   cursor: pointer;
   font-weight: bold;
-  transition: transform 0.2s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 1.2s ease;
 }
 
 .menu-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: pulse 0.6s infinite;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-header h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  animation: fadeIn 1.5s ease forwards;
-}
-
-header .tagline {
-  font-style: italic;
-  margin-top: 10px;
-  font-size: 1.2rem;
-  animation: fadeIn 2s ease forwards;
-}
-
-/* Theme Toggle Button */
-.theme-toggle {
-  display: flex;
-  align-items: center;
-}
-
-.theme-toggle input {
-  display: none;
-}
-
-.switch {
-  position: relative;
-  width: 60px;
-  height: 30px;
-  background-color: #e0e0e0;
-  border-radius: 30px;
+/* Theme Toggle */
+.theme-toggle button {
+  background: transparent;
+  border: none;
+  font-size: 28px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+  color: white;
+  transition: transform 0.3s;
+  animation: fadeIn 1.5s ease;
 }
 
-.switch .slider {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: #fff;
-  background-image: url('https://img.icons8.com/ios-filled/50/sun--v1.png');
-  background-size: 18px 18px;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: transform 0.3s, background-image 0.3s;
-}
-
-.theme-toggle input:checked + .switch {
-  background-color: #333;
-}
-
-.theme-toggle input:checked + .switch .slider {
-  transform: translateX(30px);
-  background-color: #000;
-  background-image: url('https://img.icons8.com/ios-filled/50/crescent-moon.png');
+.theme-toggle button:hover {
+  transform: rotate(20deg);
 }
 
 /* Sidebar */
@@ -123,10 +120,48 @@ header .tagline {
 
 .sidebar.open {
   width: 250px;
+  animation: bounceIn 0.8s ease forwards;
 }
 
-.sidebar a,
 .sidebar .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: white;
+  background: none;
+  border: none;
+  transition: transform 0.3s;
+}
+
+.sidebar .close-btn:hover {
+  transform: scale(1.2);
+}
+
+.sidebar-profile {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  animation: fadeSlideLeft 1s ease;
+}
+
+.sidebar-profile img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  margin-bottom: 10px;
+}
+
+.sidebar-profile h3,
+.sidebar-profile p,
+.sidebar a {
+  animation: fadeSlideLeft 1s ease;
+}
+
+.sidebar a {
   padding: 15px 20px;
   display: block;
   color: white;
@@ -135,32 +170,8 @@ header .tagline {
   transition: background 0.2s;
 }
 
-.sidebar a:hover,
-.sidebar .close-btn:hover {
+.sidebar a:hover {
   background: rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-profile {
-  text-align: center;
-  padding: 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-}
-
-.sidebar-profile img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  object-fit: cover;
-  border: 2px solid white;
-}
-
-.sidebar-profile h3 {
-  margin-bottom: 5px;
-}
-
-.sidebar-profile p {
-  font-size: 0.9rem;
 }
 
 .edit-profile-btn {
@@ -171,6 +182,7 @@ header .tagline {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .edit-profile-btn:hover {
@@ -185,6 +197,7 @@ header .tagline {
   left: 0; top: 0;
   width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.6);
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .profile-modal-content {
@@ -194,6 +207,7 @@ header .tagline {
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  animation: bounceIn 0.8s ease forwards;
 }
 
 .profile-modal-content input {
@@ -212,21 +226,23 @@ header .tagline {
   background: #a64ac9;
   color: #fff;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .profile-modal-content button:hover {
   background: #8e3ab3;
+  animation: pulse 0.6s infinite;
 }
 
 /* Hero Section */
 .hero {
-  padding: 60px 20px;
+  padding: 50px 20px;
   text-align: center;
   background-color: #fff;
   margin: 30px 20px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  animation: fadeSlideUp 1.2s ease-out;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  animation: bounceIn 1s ease;
 }
 
 .hero h2 {
@@ -242,38 +258,39 @@ header .tagline {
   color: #555;
 }
 
-button,
-.join-link {
+.join-link,
+button {
   background: linear-gradient(90deg, #7b2ff7, #f107a3);
   color: white;
   border: none;
-  padding: 14px 30px;
+  padding: 12px 28px;
   font-size: 16px;
   border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
   font-weight: bold;
-  transition: transform 0.2s, box-shadow 0.3s;
-  animation: fadeIn 1.5s ease forwards;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 1.5s ease;
 }
 
 button:hover,
 .join-link:hover {
-  transform: scale(1.05);
+  animation: pulse 0.8s infinite;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Card Section */
+/* WhatsApp Card Section */
 #whatsappLink {
   display: flex;
   justify-content: center;
   padding: 50px 20px;
-  animation: fadeSlideUp 1.5s ease-out;
+  animation: bounceIn 1.2s ease;
 }
 
 .card {
   background: #fff;
   max-width: 450px;
+  width: 100%;
   padding: 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
@@ -284,6 +301,7 @@ button:hover,
 
 .card:hover {
   transform: translateY(-5px);
+  animation: pulse 1s infinite;
 }
 
 .card h3 {
@@ -306,6 +324,7 @@ footer {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   margin-top: 40px;
+  animation: fadeIn 1.5s ease;
 }
 
 footer nav {
@@ -324,278 +343,66 @@ footer nav a:hover {
   color: #fff;
 }
 
-/* Dim Mode Styles */
+/* Dim Mode */
 .dim-mode {
-  background-color: #121212 !important;
-  color: #e0e0e0 !important;
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
 header.dim-mode {
-  background: linear-gradient(to right, #a64ac9, #ff5c8a) !important;
-  color: #ffffff !important;
+  background: linear-gradient(90deg, #a64ac9, #f107a3);
 }
 
 .dim-mode .hero,
 .dim-mode .content,
 .dim-mode .card {
-  background-color: #1c1c1c !important;
-  color: #e0e0e0 !important;
+  background-color: #1c1c1c;
+  color: #e0e0e0;
   border: 1px solid #333;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-
-.dim-mode h1,
-.dim-mode h2,
-.dim-mode h3,
-.dim-mode h4,
-.dim-mode p,
-.dim-mode a {
-  color: #f5f5f5 !important;
-}
-
-.dim-mode a:hover {
-  color: #ffb3ec !important;
 }
 
 .dim-mode button,
 .dim-mode .join-link,
 .dim-mode .menu-btn {
-  background: linear-gradient(to right, #a259ff, #f72585) !important;
-  color: #fff !important;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  background: linear-gradient(90deg, #a259ff, #f72585);
+  color: #fff;
 }
 
-.dim-mode button:hover,
-.dim-mode .join-link:hover,
-.dim-mode .menu-btn:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-
-.dim-mode footer {
-  background-color: #1a1a1a !important;
-  color: #bbb !important;
-}
-
-.dim-mode .switch {
-  background-color: #555 !important;
-}
-
-.dim-mode .switch .slider {
-  background-color: #222 !important;
-  background-image: url('https://img.icons8.com/ios-filled/50/crescent-moon.png') !important;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-@keyframes fadeSlideUp {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeSlideDown {
-  0% { opacity: 0; transform: translateY(-40px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
+/* Responsive Fixes */
 @media (max-width: 768px) {
-  header h1 {
-    font-size: 2rem;
-  }
-
   .hero {
-    padding: 40px 15px;
-    margin: 15px;
-  }
-
-  .content {
     margin: 20px 10px;
-    padding: 25px;
+    padding: 40px 15px;
   }
-
+  #whatsappLink {
+    padding: 30px 10px;
+  }
+  .card {
+    padding: 20px;
+  }
   footer nav a {
     display: block;
     margin: 8px 0;
   }
 }
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.header-left img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid white;
-}
-/* Header top section with avatar and menu */
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  margin-bottom: 10px;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Avatar styling in header */
-.header-left img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid white;
-  background-color: #fff;
-}
-
-/* Dim mode border color */
-.dim-mode .header-left img {
-  border-color: #ccc;
-}
-
-/* Menu button styling (same as Register Now) */
-.menu-btn {
-  background: linear-gradient(90deg, #7b2ff7, #f107a3);
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  font-size: 16px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: transform 0.2s, box-shadow 0.3s;
-}
-
-.menu-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive: adjust for smaller screens */
-@media (max-width: 600px) {
-  .header-top {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 8px 15px;
-  }
-
-  .header-left img {
-    width: 34px;
-    height: 34px;
-  }
-
-  .menu-btn {
-    padding: 8px 18px;
-    font-size: 14px;
-  }
-
-  header h1 {
-    font-size: 1.8rem;
-  }
-
-  .tagline {
-    font-size: 1rem;
-  }
-}
-.menu-btn.dim-mode {
-  background: linear-gradient(90deg, #5a0d85, #a10c5d);
-  color: #eee;
-}
-
-.menu-btn.dim-mode:hover {
-  background: linear-gradient(90deg, #6e189d, #b11d6b);
-}
-/* Base adjustments to ensure avatar + menu stay side by side neatly */
-.header-top {
-  flex-wrap: nowrap;
-  gap: 10px;
-}
-
-/* Ensure header-left never wraps weirdly */
-.header-left {
-  flex-shrink: 1;
-  flex-grow: 1;
-  overflow: hidden;
-}
-
-/* Avatar image - round, scale down on narrow screens */
-.header-left img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Menu button - base style */
-.menu-btn {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Even smaller screens */
 @media (max-width: 480px) {
   .header-top {
     padding: 6px 12px;
   }
-
   .header-left img {
     width: 32px;
     height: 32px;
   }
-
   .menu-btn {
     padding: 8px 16px;
     font-size: 14px;
   }
-
   header h1 {
     font-size: 1.6rem;
   }
-
   .tagline {
     font-size: 0.95rem;
-  }
-}
-
-/* For iPhone SE and super narrow screens */
-@media (max-width: 360px) {
-  .header-left img {
-    width: 28px;
-    height: 28px;
-  }
-
-  .menu-btn {
-    padding: 6px 14px;
-    font-size: 13px;
-  }
-
-  header h1 {
-    font-size: 1.5rem;
-  }
-
-  .tagline {
-    font-size: 0.9rem;
   }
 }

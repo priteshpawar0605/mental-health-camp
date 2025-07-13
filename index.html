@@ -7,25 +7,26 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header with Menu and Theme Toggle -->
- <header>
-  <div class="header-top">
-    <div class="header-left">
-      <img id="headerAvatar" src="C:\mental-health-camp\download.jpg" alt="Avatar">
-      <button class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
+  <!-- Header with Toggle -->
+  <header>
+    <div class="header-top">
+      <div class="header-left">
+        <img id="headerAvatar" src="https://i.ibb.co/2k0J4Mn/default-avatar.png" alt="Avatar">
+        <button id="menuBtn" class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
+      </div>
+      <div class="theme-toggle">
+        <button id="themeToggleBtn" onclick="toggleTheme()">🌞</button>
+      </div>
     </div>
-    <div class="theme-toggle">
-      <input type="checkbox" id="themeToggle">
-      <label for="themeToggle" class="switch">
-        <span class="slider"></span>
-      </label>
-    </div>
-  </div>
-  <h1>MindSpace Teens</h1>
-  <p class="tagline">Share. Heal. Grow. Together.</p>
-</header>
+    <h1>MindSpace Teens</h1>
+    <p class="tagline">Share. Heal. Grow. Together.</p>
+  </header>
+
   <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
+    <div class="sidebar-top">
+      <button class="close-btn" onclick="toggleSidebar()">❌</button>
+    </div>
     <div class="sidebar-profile">
       <img id="userAvatar" src="https://i.ibb.co/2k0J4Mn/default-avatar.png" alt="User Avatar">
       <h3 id="userName">Hello, Teen!</h3>
@@ -36,7 +37,11 @@
     <a href="who-we-are.html">👥 Who We Are</a>
     <a href="how-i-can-participate.html">✨ How I Can Participate</a>
     <a href="stories.html">📖 Stories</a>
-    <span class="close-btn" onclick="toggleSidebar()">× Close</span>
+    <a href="#">✅ Register</a>
+    <a href="#">✅ Join WhatsApp</a>
+    <a href="#" onclick="showProfileEdit()">✅ Edit Profile</a>
+    <a href="faq.html">✅ FAQ</a>
+    <a href="#">✅ Report an Issue</a>
   </div>
 
   <!-- Profile Edit Modal -->
@@ -44,9 +49,18 @@
     <div class="profile-modal-content">
       <h3>Edit Profile</h3>
       <input type="text" id="newUserName" placeholder="Your Name">
-      <input type="text" id="newUserAvatar" placeholder="Avatar Image URL">
+      <input type="file" id="newUserAvatarFile">
       <button onclick="saveProfile()">Save</button>
       <button onclick="closeProfileEdit()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Welcome Modal -->
+  <div id="welcomeModal" class="profile-modal">
+    <div class="profile-modal-content">
+      <h3 id="welcomeTitle">Welcome!</h3>
+      <p id="welcomeMessage">Customize your profile and join our WhatsApp community ❤️</p>
+      <button onclick="closeWelcome()">Close</button>
     </div>
   </div>
 
@@ -57,7 +71,7 @@
     <a class="join-link" href="https://forms.gle/YOUR-GOOGLE-FORM-LINK" target="_blank">Register Now</a>
   </section>
 
-  <!-- WhatsApp Link Section -->
+  <!-- WhatsApp Card -->
   <section id="whatsappLink">
     <div class="card">
       <h3>Already Registered?</h3>
@@ -79,77 +93,92 @@
     <p>&copy; 2025 MindSpace Teens. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Script -->
   <script>
-    // Theme toggle
-    const toggle = document.getElementById('themeToggle');
-    const elements = [
-      document.body,
-      document.querySelector('header'),
-      ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')
-    ];
-
-    if (localStorage.getItem('dimMode') === 'true') {
-      toggle.checked = true;
-      elements.forEach(el => el.classList.add('dim-mode'));
-    }
-
-    toggle.addEventListener('change', () => {
-      const dim = toggle.checked;
-      elements.forEach(el => el.classList.toggle('dim-mode', dim));
-      localStorage.setItem('dimMode', dim);
-    });
-
-    // Sidebar
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.getElementById("menuBtn");
     let sidebarOpen = false;
+
     function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      if (sidebarOpen) {
-        sidebar.style.width = "0";
-        sidebarOpen = false;
-      } else {
-        sidebar.style.width = "250px";
-        sidebarOpen = true;
-      }
+      sidebarOpen = !sidebarOpen;
+      sidebar.classList.toggle("open", sidebarOpen);
+      menuBtn.textContent = sidebarOpen ? "✖ Close" : "☰ Menu";
     }
 
-    // Profile Edit
+    // Theme toggle
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const elements = [document.body, document.querySelector('header'), ...document.querySelectorAll('.hero, .content, .card, button, .join-link, footer')];
+    let darkMode = localStorage.getItem('dimMode') === 'true';
+
+    applyTheme();
+    function toggleTheme() {
+      darkMode = !darkMode;
+      localStorage.setItem('dimMode', darkMode);
+      applyTheme();
+    }
+    function applyTheme() {
+      elements.forEach(el => el.classList.toggle('dim-mode', darkMode));
+      themeBtn.textContent = darkMode ? "🌙" : "🌞";
+    }
+
+    // Profile
     function showProfileEdit() {
       document.getElementById('profileModal').style.display = 'block';
     }
-
     function closeProfileEdit() {
       document.getElementById('profileModal').style.display = 'none';
     }
-
     function saveProfile() {
       const name = document.getElementById('newUserName').value;
-      const avatar = document.getElementById('newUserAvatar').value;
-
-      localStorage.setItem('mindspaceUserName', name);
-      localStorage.setItem('mindspaceUserAvatar', avatar);
-
-      updateProfile();
+      const fileInput = document.getElementById('newUserAvatarFile');
+      if (name) localStorage.setItem('mindspaceUserName', name);
+      if (fileInput.files.length) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          localStorage.setItem('mindspaceUserAvatar', reader.result);
+          updateProfile();
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        updateProfile();
+      }
       closeProfileEdit();
     }
-
     function updateProfile() {
       const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
       const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
-
       document.getElementById('userName').innerText = name;
       document.getElementById('userAvatar').src = avatar;
+      document.getElementById('headerAvatar').src = avatar;
     }
+    document.addEventListener('DOMContentLoaded', () => {
+      updateProfile();
+      showWelcomeIfNeeded();
+    });
 
-    document.addEventListener('DOMContentLoaded', updateProfile);
-    function updateProfile() {
-  const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
-  const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
+    // Welcome Modal
+    function showWelcomeIfNeeded() {
+      const modal = document.getElementById('welcomeModal');
+      const name = localStorage.getItem('mindspaceUserName');
+      const visited = localStorage.getItem('hasVisitedBefore');
+      const title = document.getElementById('welcomeTitle');
+      const message = document.getElementById('welcomeMessage');
 
-  document.getElementById('userName').innerText = name;
-  document.getElementById('userAvatar').src = avatar;
-  document.getElementById('headerAvatar').src = avatar;  // 👈 Also update header
-}
+      if (!visited) {
+        title.textContent = "Welcome!";
+        message.textContent = "Customize your profile and join our WhatsApp community ❤️";
+        modal.style.display = 'block';
+        localStorage.setItem('hasVisitedBefore', 'true');
+      } else {
+        title.textContent = `Welcome back, ${name || 'Teen'}!`;
+        message.textContent = "Glad to see you again here 💖";
+        modal.style.display = 'block';
+      }
+    }
+    function closeWelcome() {
+      document.getElementById('welcomeModal').style.display = 'none';
+    }
   </script>
 </body>
 </html>
+

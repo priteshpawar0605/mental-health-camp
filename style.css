@@ -525,3 +525,17 @@ footer nav a:hover {
   align-items: center;
   gap: 15px;
 }
+/* Universal logo rule */
+img.logo {
+  max-width: 350px;      /* Limits width to 200px, adjust as needed */
+  height: auto;          /* Keeps correct aspect ratio */
+  display: block;        /* Avoids inline spacing issues */
+  margin: 0 auto;        /* Centers the logo horizontally */
+}
+
+/* Make it responsive for smaller screens */
+@media (max-width: 600px) {
+  img.logo {
+    max-width: 150px;
+  }
+}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FAQ - Arova</title>
+  <title>Vision - Arova</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     html, body {
@@ -31,14 +31,13 @@
       margin-bottom: 20px;
     }
 
-    .content ol li {
-      margin-bottom: 15px;
+    .content p {
       line-height: 1.6;
+      color: #444;
     }
   </style>
 </head>
 <body>
-
   <!-- Header -->
   <header>
     <h1>Arova</h1>
@@ -48,12 +47,13 @@
   <!-- Main Content -->
   <main>
     <section class="content">
-      <h2>FAQ</h2>
-      <ol>
-        <li><strong>How do I join?</strong><br>Fill out the Google Form and get the WhatsApp link.</li>
-        <li><strong>Is it free?</strong><br>Yes, completely free as part of our CEP project.</li>
-        <li><strong>Is it confidential?</strong><br>We encourage respectful, private sharing in a safe environment.</li>
-      </ol>
+      <h2>Vision Of Us</h2>
+      <p>Arova envisions a world where young minds feel safe, heard, and supported.
+We aim to create spaces that nurture emotional strength and self-awareness.
+Through shared stories, connection, and guided reflection, we inspire healing.
+Arova empowers teens to grow through community, empathy, and open dialogue.
+We believe that every voice matters—and that sharing is the first step to change.
+      </p>
     </section>
   </main>
 
@@ -61,7 +61,7 @@
   <footer>
     <nav>
       <a href="index.html">Home</a>
-       <a href="vision-arova.html">Vision</a>
+      <a href="vision-arova.html">Vision</a>
       <a href="who-we-are.html">Who We Are</a>
       <a href="our-team.html">Our Team</a>
       <a href="faq.html">FAQ</a>
@@ -69,12 +69,11 @@
       <a href="stories.html">Feedback</a>
       <a href="privacy-policy.html">Privacy Policy</a>
     </nav>
-    <p>&copy; 2025 Arova Teens. All rights reserved.</p>
+    <p>&copy; 2025 Arova. All rights reserved.</p>
   </footer>
 
-  <!-- Theme + Sidebar Profile Toggle Script -->
+  <!-- Theme Script -->
   <script>
-    // Apply dim mode if set
     const elements = [
       document.body,
       document.querySelector('header'),
@@ -83,28 +82,15 @@
     if (localStorage.getItem('dimMode') === 'true') {
       elements.forEach(el => el.classList.add('dim-mode'));
     }
+  // Check if we're on index.html (or root)
+  const path = window.location.pathname;
+  const isHome = path.endsWith("index.html") || path === "/" || path === "";
 
-    // ✅ Universal reliable check
-    const path = window.location.pathname.toLowerCase();
-    const isIndexPage = path.endsWith("/index.html") || path === "/" || path === "" || !path.includes(".");
-
-    if (!isIndexPage) {
-      const profile = document.getElementById("sidebarProfile");
-      if (profile) profile.style.display = "none";
-    }
-
-    // Sidebar open/close
-    function openSidebar() {
-      document.getElementById('sidebar').classList.add('open');
-    }
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.remove('open');
-    }
-
-    // Modal (optional)
-    function openProfileModal() {
-      alert('Profile modal would open!');
-    }
-  </script>
+  if (!isHome) {
+    // Hide profile section on non-home pages
+    const profile = document.getElementById("sidebarProfile");
+    if (profile) profile.style.display = "none";
+  }
+</script>
 </body>
 </html>

@@ -209,7 +209,38 @@ header {
   padding: 4px 8px;    /* less space around it */
   border-radius: 5px;  /* optional: softer edges */
 }
+@media (max-width: 600px) {
+  .header-top img,
+  #headerAvatar {
+    width: 30px;
+    height: 30px;
+  }
 
+  .bulb-switch {
+    width: 45px;
+    height: 22px;
+  }
+
+  .bulb-switch .slider {
+    width: 18px;
+    height: 18px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .theme-toggle input:checked + .bulb-switch .slider {
+    transform: translateX(23px);
+  }
+
+  .notification-bell {
+    font-size: 20px;
+  }
+
+  .menu-btn {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+}
     /* ———————————————— */
   </style>
 </head>
@@ -218,7 +249,7 @@ header {
   <header>
     <div class="header-top">
       <div class="header-left">
-        <img id="headerAvatar" src="https://i.postimg.cc/j5DDMZrm/image.png" alt="Avatar">
+        <img id="headerAvatar" src="https://i.postimg.cc/7LrScvL7/arova-logo-website-header.png" alt="Avatar">
         <button id="menuBtn" class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
       </div>
       <div class="theme-toggle">
@@ -247,10 +278,10 @@ header {
   <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-top">
-      <button class="close-btn" onclick="toggleSidebar()">Close ✖</button>
+      <button class="close-btn" onclick="toggleSidebar()">✖</button>
     </div>
     <div class="sidebar-profile">
-      <img id="userAvatar" src="https://i.postimg.cc/j5DDMZrm/image.png" alt="User Avatar">
+      <img id="userAvatar" src="https://i.postimg.cc/7LrScvL7/arova-logo-website-header.pnghttps://i.postimg.cc/j5DDMZrm/image.png" alt="User Avatar">
       <h3 id="userName">Hello,!</h3>
       <p>Welcome to Arova </p>
       <button class="edit-profile-btn" onclick="showProfileEdit()">🖋 Edit Profile</button>
@@ -414,7 +445,7 @@ header {
     }
     function updateProfile() {
       const name = localStorage.getItem('mindspaceUserName') || 'Hello, Teen!';
-      const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.png';
+      const avatar = localStorage.getItem('mindspaceUserAvatar') || 'https://i.ibb.co/2k0J4Mn/default-avatar.pnghttps://i.postimg.cc/7LrScvL7/arova-logo-website-header.png';
       document.getElementById('userName').innerText = name;
       document.getElementById('userAvatar').src = avatar;
       document.getElementById('headerAvatar').src = avatar;

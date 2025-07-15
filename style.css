@@ -328,7 +328,7 @@ button:hover,
 /* Footer */
 footer {
   background: #222;
-  color: #ccc;
+  color: #222;
   text-align: center;
   padding: 25px 15px;
   font-size: 14px;
@@ -542,4 +542,76 @@ img.logo {
 .logo {
   max-width: 350px;
   height: auto;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+footer {
+  background: #7b2ff7;
+  color: #fff;
+}
+footer a {
+  color: #ddd;
+}
+footer a:hover {
+  color: #fff;
+}
+.sidebar {
+  background-color: #7b2ff7;
+  color: #fff;
+}
+.sidebar a {
+  color: #eee;
+}
+.sidebar a:hover {
+  color: #fff;
+}
+.notification-bell:hover {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+  100% { transform: rotate(0); }
+}
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+header .site-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+}
+
+header .site-tagline {
+  font-size: 1rem;
+  color: #eee;
+  margin-top: 5px;
+}
+footer {
+  background: linear-gradient(90deg, #7b2ff7, #a64ac9);
+  color: #fff;
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #a64ac9; /* matches your gradient end color for seamless effect */
 }

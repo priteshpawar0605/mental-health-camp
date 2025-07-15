@@ -181,6 +181,35 @@
       color: #eee;
       border: 1px solid #444;
     }
+    /* Make header a vertical flexbox */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* First row = controls to the right */
+.header-top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Logo centered on its own line */
+.logo {
+  max-width: 200px;
+  margin-top: 20px;
+}
+.close-btn {
+  font-size: 18px;     /* smaller icon */
+  padding: 4px 8px;    /* less space around it */
+  border-radius: 5px;  /* optional: softer edges */
+}
+
     /* ———————————————— */
   </style>
 </head>
@@ -218,12 +247,12 @@
   <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-top">
-      <button class="close-btn" onclick="toggleSidebar()">❌</button>
+      <button class="close-btn" onclick="toggleSidebar()">Close ✖</button>
     </div>
     <div class="sidebar-profile">
       <img id="userAvatar" src="https://i.postimg.cc/j5DDMZrm/image.png" alt="User Avatar">
-      <h3 id="userName">Hello, Teen!</h3>
-      <p>Welcome to Arova 🌸</p>
+      <h3 id="userName">Hello,!</h3>
+      <p>Welcome to Arova </p>
       <button class="edit-profile-btn" onclick="showProfileEdit()">🖋 Edit Profile</button>
     </div>
     <a href="index.html"> Home</a>
@@ -292,6 +321,7 @@
   <footer>
     <nav>
       <a href="who-we-are.html">Who We Are</a>
+          <a href="vision-arova.html">Vision</a>
       <a href="our-team.html">Our Team</a>
       <a href="faq.html">FAQ</a>
       <a href="how-i-can-participate.html">How I Can Participate</a>
